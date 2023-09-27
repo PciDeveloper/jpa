@@ -39,18 +39,20 @@ class BoardController @Autowired constructor(
     }
 
     // queryString 방식 PathVariable 생략 불가능
-    @PostMapping("/update/{bono}")
-    fun update(@PathVariable("bono") bono: Int, @RequestBody boardDTO: BoardDTO) {
-        val boardEntity = boardMapStruct.toEntity(boardDTO)
-        boardService.update(bono, boardEntity)
-    }
-
-    // path value 방식 PathVariable 생략 가능
-//    @PostMapping("/update")
-//    fun update(bono: Int, @RequestBody boardDTO: BoardDTO) {
+//    @PostMapping("/update/{bono}")
+//    fun update(@PathVariable("bono") bono: Int, @RequestBody boardDTO: BoardDTO) {
 //        val boardEntity = boardMapStruct.toEntity(boardDTO)
+////        boardEntity.bono = bono // 게시물 번호 설정
 //        boardService.update(bono, boardEntity)
 //    }
+
+    // path value 방식 PathVariable 생략 가능
+    @PostMapping("/update")
+    fun update(bono: Int, @RequestBody boardDTO: BoardDTO) {
+        val boardEntity = boardMapStruct.toEntity(boardDTO)
+//        boardEntity.bono = bono // 게시물 번호 설정
+        boardService.update(bono, boardEntity)
+    }
 
 
 }
