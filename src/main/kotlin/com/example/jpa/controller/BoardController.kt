@@ -2,6 +2,7 @@ package com.example.jpa.controller
 
 import com.example.jpa.dto.BoardDTO
 import com.example.jpa.entity.BoardEntity
+import com.example.jpa.exception.CustomException
 import com.example.jpa.exception.GlobalExceptionHandler
 import com.example.jpa.mapstruct.BoardMapStruct
 import com.example.jpa.service.BoardService
@@ -34,7 +35,7 @@ class BoardController @Autowired constructor(
             val errors = bindingResult.allErrors
             for (error in errors) {
                 logger.warn(error.defaultMessage)
-                throw Exception()
+                throw CustomException("Custom Exception 테스트")
             }
         }
 

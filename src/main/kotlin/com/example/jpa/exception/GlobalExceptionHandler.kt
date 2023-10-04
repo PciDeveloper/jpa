@@ -13,9 +13,9 @@ class GlobalExceptionHandler {
 
     private val logger = LoggerFactory.getLogger(GlobalExceptionHandler::class.java)
 
-    @ExceptionHandler(Exception::class)
-    fun boardException(ex: Exception): ResponseEntity<String> {
-        val errorMessage = ex.message ?: "Global Exception Handler 필수 데이터 누락"
+    @ExceptionHandler(CustomException::class)
+    fun boardException(ex: CustomException): ResponseEntity<String> {
+        val errorMessage = ex.customEx
         logger.warn(errorMessage)
         return ResponseEntity.badRequest().body(errorMessage)
     }
