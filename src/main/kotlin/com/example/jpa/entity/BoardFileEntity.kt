@@ -24,7 +24,6 @@ class BoardFileEntity (
     // private BoardEntity bono; 개념
 //    @ManyToOne(fetch = FetchType.LAZY) // 참조하고 있는 테이블이 연관관계 주인이 된다.
     @ManyToOne
-//    @JoinColumns(JoinColumn(name = "bono", referencedColumnName = "bono"))
     @JoinColumn(name = "bono", referencedColumnName = "bono")
     var bono: BoardEntity? = null
 )

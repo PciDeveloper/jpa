@@ -17,7 +17,7 @@ class BoardEntity (
     @Column(name = "content")
     var content: String? = null,
 
-    // mappedBy => BoardFileEntity 에서 엔티티를 참조하는 필드 이름으로 해야하므로 boardIdx
+    // mappedBy => BoardFileEntity 에서 엔티티를 참조하는 필드 이름 bono
     // var name 은 filename 을 칭함
     @OneToMany(mappedBy = "bono", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
     var file: List<BoardFileEntity> = mutableListOf()

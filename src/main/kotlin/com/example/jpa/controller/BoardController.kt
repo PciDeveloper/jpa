@@ -20,13 +20,17 @@ class BoardController @Autowired constructor(
 
     private val logger = LoggerFactory.getLogger(BoardController::class.java)
 
-    //== 해결
-//    @PostMapping("/insert")
-//    fun insert(@RequestBody boardDTO: BoardDTO): BoardDTO {
-//        val boardEntity = boardMapStruct.toEntity(boardDTO)
-//        return boardService.insert(boardDTO)
+//    {
+//        "title": "제목",
+//        "content": "내용",
+//        "file": [
+//        {
+//            "file" : "파일"
+//        }
+//        ]
 //    }
 
+    //== 해결
     @PostMapping("/insert")
     fun insert(@RequestBody boardDTO: BoardDTO) {
         val boardEntity = boardMapStruct.toEntity(boardDTO)
@@ -38,21 +42,27 @@ class BoardController @Autowired constructor(
         return boardService.list()
     }
 
-    // queryString 방식 PathVariable 생략 불가능
-//    @PostMapping("/update/{bono}")
-//    fun update(@PathVariable("bono") bono: Int, @RequestBody boardDTO: BoardDTO) {
+    @PostMapping("/delete/{bono}")
+    fun delete(@PathVariable("bono") bono: Int) {
+        boardService.delete(bono)
+    }
+
+    @PostMapping("/update")
+    fun update(@RequestBody boardDTO: BoardDTO) { // boardDTO 에 있는 bono 키 벨류를 받음
+        val boardEntity = boardMapStruct.toEntity(boardDTO) // toEntity 변환
+        boardService.update(boardEntity)
+    }
+
+//    @PostMapping("/update") // path value
+//    fun update(bono: Int, @RequestBody boardDTO: BoardDTO) {
 //        val boardEntity = boardMapStruct.toEntity(boardDTO)
-////        boardEntity.bono = bono // 게시물 번호 설정
 //        boardService.update(bono, boardEntity)
 //    }
 
-    // path value 방식 PathVariable 생략 가능
-    @PostMapping("/update")
-    fun update(bono: Int, @RequestBody boardDTO: BoardDTO) {
-        val boardEntity = boardMapStruct.toEntity(boardDTO)
-//        boardEntity.bono = bono // 게시물 번호 설정
-        boardService.update(bono, boardEntity)
-    }
-
+//    @PostMapping("/update/{bono}") // queryString
+//    fun update(@PathVariable("bono") bono: Int, @RequestBody boardDTO: BoardDTO) {
+//        val boardEntity = boardMapStruct.toEntity(boardDTO)
+//        boardService.update(bono, boardEntity)
+//    }
 
 }
