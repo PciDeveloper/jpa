@@ -1,24 +1,12 @@
-http://localhost:8080/insert
-
+http://localhost:8080/save
+update 시 bono 키 벨류 추가
+"bono" : 1,
 {
     "title": "admin",
     "content": "admin",
     "file": [
         {
             "file" : "admin파일"
-        }
-    ]
-}
-
-http://localhost:8080/update
-
-{
-    "bono" : 2,
-    "title": "today",
-    "content": "today",
-    "file": [
-        {
-            "file" : "today수정"
         }
     ]
 }
