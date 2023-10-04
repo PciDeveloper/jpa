@@ -1,0 +1,28 @@
+http://localhost:8080/insert
+
+{
+    "title": "admin",
+    "content": "admin",
+    "file": [
+        {
+            "file" : "admin파일"
+        }
+    ]
+}
+
+http://localhost:8080/update
+
+{
+    "bono" : 2,
+    "title": "today",
+    "content": "today",
+    "file": [
+        {
+            "file" : "today수정"
+        }
+    ]
+}
+
+http://localhost:8080/delete/1
+
+http://localhost:8080/list

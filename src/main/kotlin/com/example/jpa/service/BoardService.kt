@@ -18,8 +18,8 @@ class BoardService @Autowired constructor(
     private val logger = LoggerFactory.getLogger(BoardService::class.java)
 
     @Transactional
-    fun save(boardEntity: BoardEntity): BoardEntity {
-        return boardRepository.save(boardEntity)
+    fun save(boardEntity: BoardEntity) {
+        boardRepository.save(boardEntity)
     }
 
     @Transactional
@@ -29,7 +29,7 @@ class BoardService @Autowired constructor(
     }
 
     @Transactional
-    fun update(boardEntity: BoardEntity): BoardEntity {
+    fun update(boardEntity: BoardEntity) {
         val bono = boardEntity.bono ?: throw IllegalArgumentException("게시물 번호 null 방지")
         val idx = boardRepository.findById(bono).orElseThrow{ NoSuchElementException("해당 게시물이 없습니다.") }
         idx.title = boardEntity.title // boardEntity 에 title 값을 해당 idx title 에 할당
@@ -46,7 +46,7 @@ class BoardService @Autowired constructor(
                 file.file = updateFileList.file
             }
         }
-        return boardRepository.save(idx)
+        boardRepository.save(idx)
     }
 
     @Transactional
