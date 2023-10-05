@@ -63,7 +63,7 @@ class TestLogAop {
         }
 
         // 로그 결과 값 logResult 변수에 할당
-        val logResult = "Method called with result: $result"
+        val logResult = "result: $result"
 
         // LogEntity 엔티티를 생성하여 데이터베이스에 저장
         val logEntry = LogEntity(logResult = logResult, logDate = Date())
