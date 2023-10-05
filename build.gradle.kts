@@ -41,6 +41,9 @@ dependencies {
 	// AOP 의존성 추가
 	implementation("org.springframework.boot:spring-boot-starter-aop")
 
+	// modelMapper
+	implementation ("org.modelmapper:modelmapper:2.4.3")
+
 	// AOP 캐싱 사용을 위한 의존성 추가
 //	implementation("org.springframework.boot:spring-boot-starter-cache")
 //	implementation("net.sf.ehcache:ehcache")
