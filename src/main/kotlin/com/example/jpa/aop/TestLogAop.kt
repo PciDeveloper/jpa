@@ -25,13 +25,15 @@ class TestLogAop {
     // 로깅을 위한 Logger 객체 생성
     private val logger = LoggerFactory.getLogger(TestLogAop::class.java)
 
-    // com.example.jpa.controller 이하 패키지의 모든 클래스 이하 모든 메서드에 적용할 Pointcut 정의
-    // execution => 접근제어자
+    // com.example.jpa.controller 이하 패키지의 모든 클래스 이하 모든 메서드에 적용할 Pointcut 정의, execution 접근제어
+    // 포인트컷은 어떤 결합 지점에서 어떤 어드바이스를 실행할 것인지를 결정
     @Pointcut("execution(* com.example.jpa.controller..*.*(..))")
     private fun cut() {}
 
     // Pointcut 에 의해 필터링된 경로로 들어오는 경우 메서드 호출 '전'에 적용
-    // JoinPoint 객체는 각 컨트롤러에 정의된 method들의 args(매개변수)정보를 담고 있는 객체
+    // JoinPoint 객체는 각 컨트롤러에 정의된 method들의 args(매개변수)정보를 담고 있는 객체이고,
+    // 코드 실행 중에 관심사가 적용될 수 있는 지점을 가리킨다.
+    // 예를 들어, 메서드 호출, 객체 생성, 필드 접근 등이 결합 지점이 예가 된다.
     @Before("cut()")
     fun beforeParameterLog(joinPoint: JoinPoint) {
 
