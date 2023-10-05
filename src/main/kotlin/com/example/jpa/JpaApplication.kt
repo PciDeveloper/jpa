@@ -5,7 +5,7 @@ import org.springframework.boot.runApplication
 import org.springframework.context.annotation.EnableAspectJAutoProxy
 
 @SpringBootApplication
-@EnableAspectJAutoProxy // 1. aop 사용을 위한 어플리케이션 레벨에 어노테이션 추가
+@EnableAspectJAutoProxy // aop Aspect 사용 1 : 어플리케이션 레벨에 어노테이션 추가
 class JpaApplication
 
 fun main(args: Array<String>) {

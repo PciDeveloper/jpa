@@ -40,6 +40,10 @@ dependencies {
 
 	// AOP 의존성 추가
 	implementation("org.springframework.boot:spring-boot-starter-aop")
+
+	// AOP 캐싱 사용을 위한 의존성 추가
+//	implementation("org.springframework.boot:spring-boot-starter-cache")
+//	implementation("net.sf.ehcache:ehcache")
 }
 
 tasks.withType<KotlinCompile> {
