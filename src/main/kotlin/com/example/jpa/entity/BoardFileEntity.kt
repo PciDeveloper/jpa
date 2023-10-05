@@ -22,7 +22,7 @@ class BoardFileEntity (
     // var bono 는 BoardCommentEntity 엔티티가 특정 게시글(게시판)을 참조하기 위한 외래 키 fk 역할을 함
     // 따라서 bono 속성의 데이터 타입은 BoardEntity가 되어야 한다.
     // private BoardEntity bono; 개념
-//    @ManyToOne(fetch = FetchType.LAZY) // 참조하고 있는 테이블이 연관관계 주인이 된다.
+    // @ManyToOne(fetch = FetchType.LAZY) // 참조하고 있는 테이블이 연관관계 주인이 된다.
     @ManyToOne
     @JoinColumn(name = "bono", referencedColumnName = "bono")
     var bono: BoardEntity? = null

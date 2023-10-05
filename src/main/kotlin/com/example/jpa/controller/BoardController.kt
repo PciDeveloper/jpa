@@ -1,6 +1,6 @@
 package com.example.jpa.controller
 
-import com.example.jpa.aop.LogExecutionTime
+import com.example.jpa.aop.PciLog
 import com.example.jpa.dto.BoardDTO
 import com.example.jpa.exception.CustomException
 import com.example.jpa.mapstruct.BoardMapStruct
@@ -26,8 +26,8 @@ class BoardController @Autowired constructor(
     private val logger = LoggerFactory.getLogger(BoardController::class.java)
 
     // aop 사용 3 : 최종 적용
-    // @Around , LogExecutionTime annotation class 에서 생성한 어노테이션을 사용하고자하는 메서드에 적용
-    @LogExecutionTime
+    // @Around , PciLog annotation class 에서 생성한 어노테이션을 사용하고자하는 메서드에 적용
+    @PciLog
     @PostMapping("/save") // insert, update save 처리
     fun save(@Valid @RequestBody boardDTO: BoardDTO, bindingResult: BindingResult): ResponseEntity<Any> {
 

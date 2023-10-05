@@ -18,12 +18,14 @@ import java.util.*
 @Component
 class TestLogAop {
 
+    // LogEntryRepository 의존성 주입
     @Autowired
     private lateinit var logEntryRepository: LogEntryRepository
 
+    // 로깅을 위한 Logger 객체 생성
     private val logger = LoggerFactory.getLogger(TestLogAop::class.java)
 
-    // com.example.jpa.controller 이하 패키지의 모든 클래스 이하 모든 메서드에 적용
+    // com.example.jpa.controller 이하 패키지의 모든 클래스 이하 모든 메서드에 적용할 Pointcut 정의
     // execution => 접근제어자
     @Pointcut("execution(* com.example.jpa.controller..*.*(..))")
     private fun cut() {}
@@ -35,7 +37,7 @@ class TestLogAop {
 
         // 메서드 정보 받아오기
         val method = getMethod(joinPoint)
-        logger.info("============ method name : {} ============", method.name)
+        logger.info("============ Before method name : {} ============", method.name)
 
         // 파라미터 받아오기
         val args = joinPoint.args
@@ -52,8 +54,9 @@ class TestLogAop {
 
         // 메서드 정보 받아오기
         val method = getMethod(joinPoint)
-        logger.info("============ method name : {} ============", method.name)
+        logger.info("============ After method name : {} ============", method.name)
 
+        // 메서드의 리턴 타입 및 리턴 값 로깅
         result?.let {
             logger.info("return type : {}", it::class.simpleName)
             logger.info("return value : {}", it)

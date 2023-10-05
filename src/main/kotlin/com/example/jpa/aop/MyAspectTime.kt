@@ -17,7 +17,7 @@ class MyAspectTime {
     // @Around 를 사용하기 위해 LogMyAspectTime 이라는 어노테이션 class 파일에 클래스명과 일치시키기
     // JoinPoint 객체는 각 컨트롤러에 정의된 method들의 args(매개변수)정보를 담고 있는 객체
     // @Around 어드바이스는 앞서 설명한 어드바이스의 기능을 모두 포괄하고 있음 ()
-    @Around("@annotation(com.example.jpa.aop.LogExecutionTime)")
+    @Around("@annotation(com.example.jpa.aop.PciLog)")
     fun executionTime(joinPoint: ProceedingJoinPoint): Any {
 
         val start = System.currentTimeMillis()
