@@ -1,13 +1,11 @@
 package com.example.jpa.controller
 
+import com.example.jpa.aop.LogExecutionTime
 import com.example.jpa.dto.BoardDTO
-import com.example.jpa.entity.BoardEntity
 import com.example.jpa.exception.CustomException
-import com.example.jpa.exception.GlobalExceptionHandler
 import com.example.jpa.mapstruct.BoardMapStruct
 import com.example.jpa.service.BoardService
 import jakarta.validation.Valid
-import jakarta.validation.ValidationException
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -27,6 +25,7 @@ class BoardController @Autowired constructor(
 
     private val logger = LoggerFactory.getLogger(BoardController::class.java)
 
+    @LogExecutionTime // @Around , LogExecutionTime annotation class 에서 생성한 어노테이션 사용
     @PostMapping("/save") // insert, update save 처리
     fun save(@Valid @RequestBody boardDTO: BoardDTO, bindingResult: BindingResult): ResponseEntity<Any> {
 
@@ -35,7 +34,7 @@ class BoardController @Autowired constructor(
             val errors = bindingResult.allErrors
             for (error in errors) {
                 logger.warn(error.defaultMessage)
-                throw CustomException("Custom Exception 테스트")
+                throw CustomException("Custom Exception 테스트 실행됨")
             }
         }
 

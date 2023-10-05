@@ -35,8 +35,11 @@ dependencies {
 	kapt("org.mapstruct:mapstruct-processor:1.5.1.Final")
 	kaptTest("org.mapstruct:mapstruct-processor:1.5.1.Final")
 
-	// Valid 사용을 위한 의존성 추가
+	// @Valid 사용을 위한 의존성 추가
 	implementation("org.springframework.boot:spring-boot-starter-validation")
+
+	// AOP 의존성 추가
+	implementation("org.springframework.boot:spring-boot-starter-aop")
 }
 
 tasks.withType<KotlinCompile> {
