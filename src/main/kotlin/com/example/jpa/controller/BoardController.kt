@@ -2,7 +2,7 @@ package com.example.jpa.controller
 
 import com.example.jpa.aop.PciLog
 import com.example.jpa.dto.BoardDTO
-import com.example.jpa.exception.CustomException
+import com.example.jpa.exception.CustomExc
 import com.example.jpa.mapstruct.BoardMapStruct
 import com.example.jpa.service.BoardService
 import jakarta.validation.Valid
@@ -25,22 +25,22 @@ class BoardController @Autowired constructor(
 
     private val logger = LoggerFactory.getLogger(BoardController::class.java)
 
-    // aop 사용 3 : 최종 적용
-    // @Around , PciLog annotation class 에서 생성한 어노테이션을 사용하고자하는 메서드에 적용
-    @PciLog
+    @PciLog // aop 사용 4 : PciLog.kt annotation class 에서 생성한 어노테이션을 최종적으로 사용하고자하는 메서드에 적용
     @PostMapping("/save") // insert, update save 처리
     fun save(@Valid @RequestBody boardDTO: BoardDTO, bindingResult: BindingResult): ResponseEntity<Any> {
 
-        // 아래와 같이 로그를 출력하였지만 AOP 로깅을 사용하여 컨트롤러 메서드마다
-        // parameter 키 벨류, 메서드 이름 등 출력되게 하였음 TestLogAop.kt 참고
+        // BindingResult  객체는 유효성 검사 결과를 저장하는데 사용된다.
+        // BindingResult 를 사용하기 위해 BoardDTO 필드에 요소를 지정하였다.
+
+        // 아래와 같이 로그를 출력하였지만 TestLogAop.kt 에서 AOP 로깅을 사용하여 컨트롤러 메서드마다 출력되게 하였다.
         // logger.info("Save Parameter Log = Title: '{}', Content: '{}'", boardDTO.title, boardDTO.content)
 
-        // BoardDTO title Notnull 설정 후 임시 검증 로직 추가
+        // BoardDTO title Notnull 설정 후 검증 로직 추가
         if (bindingResult.hasErrors()) {
-            val errors = bindingResult.allErrors
+            val errors = bindingResult.allErrors // 검사 결과 발생한 오류를 errors 변수에 할당
             for (error in errors) {
-                logger.warn(error.defaultMessage)
-                throw CustomException("Custom Exception 테스트 실행됨")
+                logger.warn(error.defaultMessage) // 검증 오류에 기본 메세지 전달
+                throw CustomExc("Custom Exception 테스트 실행됨") // 검증 오류가 발생하면 예외 처리를 결과를 보여준다.
             }
         }
 

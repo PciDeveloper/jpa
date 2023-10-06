@@ -12,10 +12,10 @@ data class LogEntity (
     @Column(name = "id")
     val id: Int? = null,
 
-    @Column(name = "log_result")
+    @Column(name = "logResult")
     val logResult: String,
 
-    @Column(name = "log_Date")
+    @Column(name = "logDate")
     val logDate: Date
 
 )
