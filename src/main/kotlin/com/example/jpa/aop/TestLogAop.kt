@@ -2,6 +2,7 @@ package com.example.jpa.aop
 
 import com.example.jpa.entity.LogEntity
 import com.example.jpa.repository.LogEntryRepository
+import jakarta.servlet.http.HttpServletRequest
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.annotation.AfterReturning
 import org.aspectj.lang.annotation.Aspect
@@ -17,7 +18,6 @@ import java.util.*
 @Aspect
 @Component
 class TestLogAop {
-
 
     @Autowired
     private lateinit var logEntryRepository: LogEntryRepository // LogEntryRepository 의존성 주입
@@ -64,6 +64,10 @@ class TestLogAop {
         val method = getMethod(joinPoint)
         logger.info("============ @AfterReturning method name : {} ============", method.name)
 
+        // Request 요청 데이터 로깅
+        val req = getRequestData(joinPoint)
+        logger.info("============ [Request] : {} ============", req)
+
         // 메서드의 리턴 타입 및 리턴 값 로깅
         // 메서드가 반환한 결과("result") 가 null 이 아닌 경우에만 실행되는 블록이다.
         result?.let {
@@ -75,7 +79,7 @@ class TestLogAop {
         val logResult = "result: $result"
 
         // LogEntity 엔티티를 생성하여 각각의 필드에 값을 할당하고 데이터베이스에 저장한다.
-        val logEntry = LogEntity(logResult = logResult, logDate = Date())
+        val logEntry = LogEntity(logResult = logResult, req = req, logDate = Date())
         logEntryRepository.save(logEntry)
     }
 
@@ -88,4 +92,25 @@ class TestLogAop {
         val signature = joinPoint.signature as MethodSignature
         return signature.method
     }
+
+    // Request 요청 데이터를 가져오는 메서드
+    // Request 로그를 사용하려면 해당 컨트롤러 메서드에 request: HttpServletRequest 매개변수 세팅해놓기
+    private fun getRequestData(joinPoint: JoinPoint): String {
+
+        //  HTTP 요청 객체를 찾기 위해 find 함수를 사용
+        val request = joinPoint.args.find { it is HttpServletRequest }
+
+
+        if (request is HttpServletRequest) {
+            val host = request.getHeader("Host") // localhost:8090
+            val requestURL = request.requestURL // http://localhost:8090/save
+            val requestURI = request.requestURI // 요청 URI /save
+            val method = request.method // 요청 메서드 Get, Post
+//            val headers = request.headerNames // 요청 헤더
+
+            return "호스트 : $host, URL : $requestURL, URI : $requestURI, 메서드 : $method"
+        }
+        return "요청 데이터 없음"
+    }
+
 }

@@ -15,6 +15,9 @@ data class LogEntity (
     @Column(name = "logResult")
     val logResult: String,
 
+    @Column(name = "req")
+    val req: String,
+
     @Column(name = "logDate")
     val logDate: Date
 

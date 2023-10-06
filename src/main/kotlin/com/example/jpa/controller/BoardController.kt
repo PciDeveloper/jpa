@@ -5,6 +5,7 @@ import com.example.jpa.dto.BoardDTO
 import com.example.jpa.exception.CustomExc
 import com.example.jpa.mapstruct.BoardMapStruct
 import com.example.jpa.service.BoardService
+import jakarta.servlet.http.HttpServletRequest
 import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,7 +28,7 @@ class BoardController @Autowired constructor(
 
     @PciLog // aop 사용 4 : PciLog.kt annotation class 에서 생성한 어노테이션을 최종적으로 사용하고자하는 메서드에 적용
     @PostMapping("/save") // insert, update save 처리
-    fun save(@Valid @RequestBody boardDTO: BoardDTO, bindingResult: BindingResult): ResponseEntity<Any> {
+    fun save(@Valid @RequestBody boardDTO: BoardDTO, bindingResult: BindingResult, request: HttpServletRequest): ResponseEntity<Any> {
 
         // BindingResult  객체는 유효성 검사 결과를 저장하는데 사용된다.
         // BindingResult 를 사용하기 위해 BoardDTO 필드에 요소를 지정하였다.

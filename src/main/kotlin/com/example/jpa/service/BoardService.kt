@@ -5,7 +5,6 @@ import com.example.jpa.entity.BoardEntity
 import com.example.jpa.mapstruct.BoardMapStruct
 import com.example.jpa.repository.BoardRepository
 import jakarta.transaction.Transactional
-import org.modelmapper.ModelMapper
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -14,8 +13,7 @@ import java.util.*
 @Service
 class BoardService @Autowired constructor(
     private val boardRepository: BoardRepository,
-    private val boardMapStruct: BoardMapStruct,
-    private val modelMapper: ModelMapper
+    private val boardMapStruct: BoardMapStruct
 ) {
 
     private val logger = LoggerFactory.getLogger(BoardService::class.java)
@@ -42,9 +40,4 @@ class BoardService @Autowired constructor(
         boardRepository.deleteById(bono)
     }
 
-//    @Transactional
-//    fun save(boardDTO: BoardDTO): BoardDTO {
-//        val result = boardRepository.save(modelMapper.map(boardDTO, BoardEntity::class.java))
-//        return modelMapper.map(result, BoardDTO::class.java)
-//    }
 }
