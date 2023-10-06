@@ -1,11 +1,14 @@
 package com.example.jpa.entity
 
 import jakarta.persistence.*
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 import java.util.Date
 
 @Entity
 @Table(name = "log")
-data class LogEntity (
+@Serializable
+class LogEntity (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,10 +16,10 @@ data class LogEntity (
     val id: Int? = null,
 
     @Column(name = "logResult")
-    val logResult: String,
+    val logResult: Json,
 
     @Column(name = "req")
-    val req: String,
+    val req: Json,
 
     @Column(name = "logDate")
     val logDate: Date

@@ -42,11 +42,14 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-aop")
 
 	// modelMapper
-	implementation ("org.modelmapper:modelmapper:2.4.3")
+	implementation("org.modelmapper:modelmapper:2.4.3")
 
-	// AOP 캐싱 사용을 위한 의존성 추가
-//	implementation("org.springframework.boot:spring-boot-starter-cache")
-//	implementation("net.sf.ehcache:ehcache")
+	// JSON
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+
+	// GSON
+	implementation("com.google.code.gson:gson:2.8.9")
+
 }
 
 tasks.withType<KotlinCompile> {

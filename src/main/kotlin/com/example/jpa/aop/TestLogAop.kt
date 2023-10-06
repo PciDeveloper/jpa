@@ -1,8 +1,12 @@
 package com.example.jpa.aop
 
+import com.example.jpa.dto.LogDTO
 import com.example.jpa.entity.LogEntity
 import com.example.jpa.repository.LogEntryRepository
+import com.google.gson.Gson
 import jakarta.servlet.http.HttpServletRequest
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.encodeToJsonElement
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.annotation.AfterReturning
 import org.aspectj.lang.annotation.Aspect
@@ -60,6 +64,8 @@ class TestLogAop {
     @AfterReturning(value = "cut()", returning = "result")
     fun logMethodCall(joinPoint: JoinPoint, result: Any?) {
 
+        val gson = Gson()
+
         // 메서드 정보 받아오기
         val method = getMethod(joinPoint)
         logger.info("============ @AfterReturning method name : {} ============", method.name)
@@ -76,11 +82,18 @@ class TestLogAop {
         }
 
         // 로그 결과 값 logResult 변수에 할당
-        val logResult = "result: $result"
+//        val logResult = result
+
+//        val logResult = result
+
+//        val test = gson.toJson(result)
+
+//        val logResultJson = gson.toJson(logResult, LogEntity::class.java)
+//        val reqJson = gson.toJson(req)
 
         // LogEntity 엔티티를 생성하여 각각의 필드에 값을 할당하고 데이터베이스에 저장한다.
-        val logEntry = LogEntity(logResult = logResult, req = req, logDate = Date())
-        logEntryRepository.save(logEntry)
+//        val logEntry = LogEntity(logResult = test, req = reqJson, logDate = Date())
+//        logEntryRepository.save(logEntry)
     }
 
     // 이 페이지에 어노테이션을 가지고 있는 모든 메서드들에서 getMethod 를 호출하여 joinPoint 를 사용할 수 있게 메서드 작성 (시발점)
