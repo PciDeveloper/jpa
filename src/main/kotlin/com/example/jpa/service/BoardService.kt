@@ -7,8 +7,8 @@ import com.example.jpa.repository.BoardRepository
 import jakarta.transaction.Transactional
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class BoardService @Autowired constructor(
@@ -30,18 +30,35 @@ class BoardService @Autowired constructor(
         return find.map { boardMapStruct.toDTO(it) }
     }
 
-    fun detail(bono: Int): Optional<BoardDTO> {
+    // error !!!
+    // java.lang.reflect.InaccessibleObjectException: Unable to make field private final java.lang.Object
+    // java.util.Optional.value accessible: module java.base does not "opens java.util" to unnamed module @704921a5
+//    fun detail(bono: Int): Optional<BoardDTO> {
+//        val find = boardRepository.findById(bono)
+//        return find.map { boardMapStruct.toDTO(it) }
+//    }
+
+    fun detail(bono: Int): ResponseEntity<Any> {
         val find = boardRepository.findById(bono)
-        return find.map { boardMapStruct.toDTO(it) }
+        return ResponseEntity.ok(hashMapOf("mode" to true, "data" to find))
     }
 
     @Transactional
     fun delete(bono: Int) {
-        boardRepository.deleteById(bono)
+
+        val find = boardRepository.findById(bono) // 해당 게시물 bono 조회
+
+        if (find.isPresent) {
+            val deletePre = find.get() // 삭제되기 이전에 해당 bono 게시글 데이터 백업 저장
+            val toDto = boardMapStruct.toDTO(deletePre) // Entity -> DTO 변환
+            boardRepository.deleteById(bono) // 실제 삭제 실행 로직
+            logger.info("result : $toDto") // 원본 데이터 toDTO 변환 값 출력 => 어떠한 게시글이 삭제가 이루어졌는지 보기위함
+        } else {
+            logger.info("해당 게시물이 없습니다.")
+        }
     }
 
-//    @Transactional
-//    fun delete(boardEntity: BoardEntity) {
+//    fun testDelete(boardEntity: BoardEntity) {
 //        boardEntity.bono?.let { boardRepository.deleteById(it) }
 //    }
 

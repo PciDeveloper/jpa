@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import java.util.*
 
 @RestController
 class BoardController @Autowired constructor(
     private val boardService: BoardService,
     private val boardMapStruct: BoardMapStruct
+
 ) {
 
     private val logger = LoggerFactory.getLogger(BoardController::class.java)
@@ -56,9 +56,18 @@ class BoardController @Autowired constructor(
         return boardService.list()
     }
 
+    // error !!!
+    // java.lang.reflect.InaccessibleObjectException: Unable to make field private final java.lang.Object
+    // java.util.Optional.value accessible: module java.base does not "opens java.util" to unnamed module @704921a5
+//    @GetMapping("/detail/{bono}")
+//    fun detail(@PathVariable("bono") bono: Int): Optional<BoardDTO> {
+//        return boardService.detail(bono)
+//    }
+
     @GetMapping("/detail/{bono}")
-    fun detail(@PathVariable("bono") bono: Int): Optional<BoardDTO> {
-        return boardService.detail(bono)
+    fun detail(@PathVariable("bono") bono: Int): ResponseEntity<Any> {
+        val result = boardService.detail(bono)
+        return ResponseEntity.ok(hashMapOf("mode" to true, "data" to result))
     }
 
     @PostMapping("/delete/{bono}")
@@ -67,9 +76,9 @@ class BoardController @Autowired constructor(
     }
 
 //    @PostMapping("/delete")
-//    fun delete(boardDTO: BoardDTO) {
+//    fun test(boardDTO: BoardDTO) {
 //        val boardEntity = boardMapStruct.toEntity(boardDTO)
-//        boardService.delete(boardEntity)
+//        boardService.testDelete(boardEntity)
 //    }
 
 }

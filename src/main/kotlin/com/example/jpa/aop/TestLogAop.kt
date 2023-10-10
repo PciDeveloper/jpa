@@ -12,6 +12,7 @@ import org.aspectj.lang.annotation.Pointcut
 import org.aspectj.lang.reflect.MethodSignature
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
 import java.lang.reflect.Method
 import java.util.*
@@ -69,7 +70,6 @@ class TestLogAop {
 
         // Request 요청 데이터 로깅
         val req = getRequestData(joinPoint)
-//        val reqJson = gson.toJson(req, LogEntity::class.java)
         logger.info("============ [Request] : {} ============", req)
 
         // 메서드의 리턴 타입 및 리턴 값 로깅
@@ -79,17 +79,13 @@ class TestLogAop {
             logger.info("return value : {}", it)
         }
 
-//        val test = gson.fromJson(result, LogEntity::class.java)
-//        logger.info("result value????????????? : {}", result)
+        // result 결과 값을 Json 으로 변환
+        val logResultJson = gson.toJson(result)
 
-        // 로그 결과 값 logResult 변수에 할당
-        val logResult = "result : $result"
-//        val logResult = result
-//        val logResult = gson.toJson(result)
-//        val logResultJson = gson.toJson(logResult, LogEntity::class.java)
+        val reqJson = gson.toJson(req)
 
         // LogEntity 엔티티를 생성하여 각각의 필드에 값을 할당하고 데이터베이스에 저장한다.
-        val logEntry = LogEntity(logResult = logResult, req = req, logDate = Date())
+        val logEntry = LogEntity(logResult = logResultJson, req = reqJson, logDate = Date())
         logEntryRepository.save(logEntry)
     }
 
@@ -104,21 +100,27 @@ class TestLogAop {
     }
 
     // Request 요청 데이터를 가져오는 메서드
-    // Request 로그를 사용하려면 해당 컨트롤러 메서드에 request: HttpServletRequest 매개변수 세팅해놓기
-    private fun getRequestData(joinPoint: JoinPoint): String {
+    // Request 로그를 사용하려면 해당 컨트롤러 메서드에 request: HttpServletRequest 매개변수 세팅
+    private fun getRequestData(joinPoint: JoinPoint): Any {
 
         //  HTTP 요청 객체를 찾기 위해 find 함수를 사용
         val request = joinPoint.args.find { it is HttpServletRequest }
-
 
         if (request is HttpServletRequest) {
             val host = request.getHeader("Host") // localhost:8090
             val requestURL = request.requestURL // http://localhost:8090/save
             val requestURI = request.requestURI // 요청 URI /save
             val method = request.method // 요청 메서드 Get, Post
-//            val headers = request.headerNames // 요청 헤더
 
-            return "호스트 : $host, URL : $requestURL, URI : $requestURI, 메서드 : $method"
+            val requestData = mapOf(
+                "host" to host,
+                "requestURL" to requestURL,
+                "requestURI" to requestURI,
+                "method" to method
+            )
+
+            // 요청이 들어왔을 때 host, requestURL, requestURI, method 값 던지기
+            return ResponseEntity.ok(hashMapOf("mode" to true, "data" to requestData))
         }
         return "요청 데이터 없음"
     }
