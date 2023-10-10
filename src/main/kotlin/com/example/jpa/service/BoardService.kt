@@ -40,4 +40,9 @@ class BoardService @Autowired constructor(
         boardRepository.deleteById(bono)
     }
 
+//    @Transactional
+//    fun delete(boardEntity: BoardEntity) {
+//        boardEntity.bono?.let { boardRepository.deleteById(it) }
+//    }
+
 }

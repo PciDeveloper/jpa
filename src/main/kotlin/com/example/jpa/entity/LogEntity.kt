@@ -7,7 +7,6 @@ import java.util.Date
 
 @Entity
 @Table(name = "log")
-@Serializable
 class LogEntity (
 
     @Id
@@ -16,10 +15,12 @@ class LogEntity (
     val id: Int? = null,
 
     @Column(name = "logResult")
-    val logResult: Json,
+    @Serializable
+    val logResult: String,
 
     @Column(name = "req")
-    val req: Json,
+    @Serializable
+    val req: String,
 
     @Column(name = "logDate")
     val logDate: Date

@@ -66,4 +66,10 @@ class BoardController @Autowired constructor(
         boardService.delete(bono)
     }
 
+//    @PostMapping("/delete")
+//    fun delete(boardDTO: BoardDTO) {
+//        val boardEntity = boardMapStruct.toEntity(boardDTO)
+//        boardService.delete(boardEntity)
+//    }
+
 }

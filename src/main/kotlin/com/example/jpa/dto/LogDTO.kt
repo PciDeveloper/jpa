@@ -9,7 +9,7 @@ import java.util.*
 
 data class LogDTO (
     val id: Int? = null,
-    val logResult: Json,
-    val req: Json,
+    val logResult: String,
+    val req: String,
     val logDate: Date
 )
