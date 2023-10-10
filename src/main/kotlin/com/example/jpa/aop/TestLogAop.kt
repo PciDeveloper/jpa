@@ -107,8 +107,8 @@ class TestLogAop {
         val request = joinPoint.args.find { it is HttpServletRequest }
 
         if (request is HttpServletRequest) {
-            val host = request.getHeader("Host") // localhost:8090
-            val requestURL = request.requestURL // http://localhost:8090/save
+            val host = request.getHeader("Host") // localhost:8080
+            val requestURL = request.requestURL // http://localhost:8080/save
             val requestURI = request.requestURI // 요청 URI /save
             val method = request.method // 요청 메서드 Get, Post
 

@@ -15,9 +15,11 @@ class LogEntity (
     @Column(name = "id")
     val id: Int? = null,
 
+//    @Column(name = "logResult", columnDefinition = "json")
     @Column(name = "logResult")
     val logResult: String,
 
+//    @Column(name = "req", columnDefinition = "json")
     @Column(name = "req")
     val req: String,
 
