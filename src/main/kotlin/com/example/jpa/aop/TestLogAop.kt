@@ -3,8 +3,6 @@ package com.example.jpa.aop
 import com.example.jpa.entity.LogEntity
 import com.example.jpa.repository.LogEntryRepository
 import com.google.gson.Gson
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import jakarta.servlet.http.HttpServletRequest
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.annotation.AfterReturning

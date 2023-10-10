@@ -2,7 +2,6 @@ package com.example.jpa.entity
 
 import jakarta.persistence.*
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 import java.util.Date
 
 @Entity
