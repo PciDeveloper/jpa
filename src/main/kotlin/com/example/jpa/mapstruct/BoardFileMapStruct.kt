@@ -29,7 +29,8 @@ interface BoardFileMapStruct: BoardFileEntityMapper<BoardFileEntity, BoardFileDT
     companion object {
         @AfterMapping @JvmStatic
         fun after(dto: BoardFileDTO, @MappingTarget entity: BoardFileEntity) {
-            // entity 의 bono 가 null 이거나 bono 가 null 인지 확인
+
+            // entity 의 bono 가 null 이면 null
             if (entity.bono?.bono == null) entity.bono = null
         }
     }
