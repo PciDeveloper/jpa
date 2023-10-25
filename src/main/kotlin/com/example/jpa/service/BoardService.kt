@@ -24,7 +24,7 @@ class BoardService @Autowired constructor(
     }
 
     // 데이터 변경시에는 트랜잭션이 필요하고,
-    // 단순 조회는 트랜잭션(@Transactional) 없이 읽기가 가능하다.
+    // 단순 조회는 트랜잭션(@Transactional) 사용 x
     fun list(): List<BoardDTO> {
         val find = boardRepository.findAll()
         return find.map { boardMapStruct.toDTO(it) }
