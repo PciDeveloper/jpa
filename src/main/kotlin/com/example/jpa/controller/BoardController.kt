@@ -53,7 +53,7 @@ class BoardController @Autowired constructor(
         return boardService.list()
     }
 
-    // error !!
+    // error !!!
     // java.lang.reflect.InaccessibleObjectException: Unable to make field private final java.lang.Object
     // java.util.Optional.value accessible: module java.base does not "opens java.util" to unnamed module @704921a5
 //    @GetMapping("/detail/{bono}")
