@@ -85,7 +85,8 @@ class TestLogAop {
         val reqJson = gson.toJson(req)
 
         // LogEntity 엔티티를 생성하여 각각의 필드에 값을 할당하고 데이터베이스에 저장한다.
-        val logEntry = LogEntity(logResult = logResultJson, req = reqJson, logDate = Date())
+//        val logEntry = LogEntity(logResult = logResultJson, req = reqJson, logDate = Date())
+        val logEntry = LogEntity(req = reqJson, logDate = Date())
         logEntryRepository.save(logEntry)
     }
 

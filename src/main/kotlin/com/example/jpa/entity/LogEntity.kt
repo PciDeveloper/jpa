@@ -16,14 +16,14 @@ class LogEntity (
     val id: Int? = null,
 
 //    @Column(name = "logResult", columnDefinition = "json")
-    @Column(name = "logResult")
-    val logResult: String,
+//    @Column(name = "log_Result")
+//    val logResult: String,
 
 //    @Column(name = "req", columnDefinition = "json")
     @Column(name = "req")
     val req: String,
 
-    @Column(name = "logDate")
+    @Column(name = "log_Date")
     val logDate: Date
 
 )
